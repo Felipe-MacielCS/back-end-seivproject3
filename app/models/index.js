@@ -1,58 +1,73 @@
-import dbConfig from "../config/db.config.js";
 import { Sequelize } from "sequelize";
-import sequelize from "../config/sequelizeInstance.js";
+import dbConfig from "../config/db.config.js";
 
-// Models
-
+// Import model definitions
 import User from "./user.model.js";
-import Session from "./session.model.js";
-import Tutorial from "./tutorial.model.js";
-import Lesson from "./lesson.model.js"; 
-
+import Athlete from "./athlete.model.js";
+import Coach from "./coach.model.js";
+import Sport from "./sport.model.js";
+import Goal from "./goal.model.js";
+import Result from "./result.model.js";
+import Exercise from "./exercise.model.js";
+import ExercisePool from "./exercisepool.model.js";
+import ExercisePlan from "./exerciseplan.model.js";
 
 const db = {};
+
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.user = User;
-db.session = Session;
-db.tutorial = Tutorial;
-db.lesson = Lesson;
+// Initialize models
+db.user = User(sequelize, Sequelize);
+db.athlete = Athlete(sequelize, Sequelize);
+db.coach = Coach(sequelize, Sequelize);
+db.sport = Sport(sequelize, Sequelize);
+db.goal = Goal(sequelize, Sequelize);
+db.result = Result(sequelize, Sequelize);
+db.exercise = Exercise(sequelize, Sequelize);
+db.exercisepool = ExercisePool(sequelize, Sequelize);
+db.exerciseplan = ExercisePlan(sequelize, Sequelize);
 
-// foreign key for session
-db.user.hasMany(
-  db.session,
-  { as: "session" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.session.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
 
-// foreign key for tutorials
-db.user.hasMany(
-  db.tutorial,
-  { as: "tutorial" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.tutorial.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+// athlete foreign key
+db.user.hasMany(db.athlete, { foreignKey: "userID", as: "athletes" });
+db.athlete.belongsTo(db.user, { foreignKey: "userID", as: "user" });
 
-// foreign key for lessons
-db.tutorial.hasMany(
-  db.lesson,
-  { as: "lesson" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.lesson.belongsTo(
-  db.tutorial,
-  { as: "tutorial" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+// caoch foreign key
+db.user.hasOne(db.coach, { foreignKey: "userID", as: "coach" });
+db.coach.belongsTo(db.user, { foreignKey: "userID", as: "user" });
+
+//  sport foreign key
+db.athlete.hasMany(db.sport, { foreignKey: "athleteID", as: "sports" });
+db.sport.belongsTo(db.athlete, { foreignKey: "athleteID", as: "athlete" });
+
+// goal foreign key
+db.athlete.hasMany(db.goal, { foreignKey: "athleteID", as: "goals" });
+db.goal.belongsTo(db.athlete, { foreignKey: "athleteID", as: "athlete" });
+
+db.exercise.hasMany(db.goal, { foreignKey: "exerciseID", as: "goals" });
+db.goal.belongsTo(db.exercise, { foreignKey: "exerciseID", as: "exercise" });
+
+// result foreign key
+db.goal.hasMany(db.result, { foreignKey: "goalID", as: "results" });
+db.result.belongsTo(db.goal, { foreignKey: "goalID", as: "goal" });
+
+// exerciseplan foreign key
+db.coach.hasMany(db.exerciseplan, { foreignKey: "coachID", as: "exerciseplans" });
+db.exerciseplan.belongsTo(db.coach, { foreignKey: "coachID", as: "coach" });
+
+// exercisepool foreign key - many-to-many between exercise and exerciseplan
+db.exercise.belongsToMany(db.exerciseplan, {
+  through: db.exercisepool,
+  foreignKey: "exerciseID",
+  otherKey: "planID",
+  as: "exerciseplans",
+});
+db.exerciseplan.belongsToMany(db.exercise, {
+  through: db.exercisepool,
+  foreignKey: "planID",
+  otherKey: "exerciseID",
+  as: "exercises",
+});
 
 export default db;
