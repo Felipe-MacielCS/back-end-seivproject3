@@ -12,20 +12,6 @@ import Exercise from "./exercise.model.js";
 import ExercisePool from "./exercisepool.model.js";
 import ExercisePlan from "./exerciseplan.model.js";
 
-// Initialize Sequelize
-const sequelize = new Sequelize(
-  dbConfig.DB,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
-  {
-    host: dbConfig.HOST,
-    port: dbConfig.PORT,
-    dialect: dbConfig.dialect,
-    pool: dbConfig.pool,
-    logging: process.env.NODE_ENV === 'development' ? console.log : false,
-  }
-);
-
 const db = {};
 
 db.Sequelize = Sequelize;
