@@ -9,10 +9,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    reps: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     repetitions: {
       type: DataTypes.INTEGER,
       allowNull: true,
