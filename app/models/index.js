@@ -12,6 +12,4 @@ import Coach from "./coach.model.js";
 db.coach = Coach(sequelize, Sequelize);
 
 
-db.coach.hasMany(db.coach, { foreignKey: "userID", as: "exerciseplans" }); // adjust as needed
-
 export default db;
