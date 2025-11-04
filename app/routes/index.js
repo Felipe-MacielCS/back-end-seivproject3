@@ -3,8 +3,8 @@ import { Router } from "express";
 const router = Router();
 
 
-import CoachRoutes from "./coach.routes.js";
+import Coach from "./coach.routes.js";
 
-router.use("/coaches", CoachRoutes);
+router.use("/coaches", Coach);
 
 export default router;
