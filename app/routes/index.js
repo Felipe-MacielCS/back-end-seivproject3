@@ -3,8 +3,8 @@ import { Router } from "express";
 const router = Router();
 
 
-import Athlete from "./coach.routes.js";
+import Exercise from "./exercise.routes.js";
 
-router.use("/athletes", Athlete);
+router.use("/exercises", Exercise);
 
 export default router;
