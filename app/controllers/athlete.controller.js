@@ -4,7 +4,6 @@ const Op = db.Sequelize.Op;
 
 const exports = {};
 
-// ✅ Create and Save a new Athlete
 exports.create = (req, res) => {
   if (!req.body.userID) {
     res.status(400).send({ message: "User ID cannot be empty!" });
@@ -28,21 +27,30 @@ exports.create = (req, res) => {
     );
 };
 
-// ✅ Retrieve all Athletes (optional filtering)
-exports.findAll = (req, res) => {
+exports.findAll = async (req, res) => {
   const sport = req.query.sport;
-  const condition = sport ? { sport: { [Op.like]: `%${sport}%` } } : null;
+  const condition = sport ? { sport: { [Op.like]: `%${sport}%` } } : undefined;
 
-  Athlete.findAll({ where: condition })
-    .then((data) => res.send(data))
-    .catch((err) =>
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving athletes.",
-      })
-    );
+  try {
+    const athletes = await Athlete.findAll({
+      where: condition,
+      include: [
+        {
+          model: db.user, 
+          attributes: ["userID", "name", "email", "isAdmin"],
+        },
+      ],
+    });
+
+    res.status(200).send(athletes);
+  } catch (err) {
+    console.error(" Error retrieving athletes:", err);
+    res.status(500).send({
+      message: err.message || "Some error occurred while retrieving athletes.",
+    });
+  }
 };
 
-// ✅ Retrieve a single Athlete by athleteID
 exports.findOne = (req, res) => {
   const athleteID = req.params.id;
 
@@ -61,7 +69,6 @@ exports.findOne = (req, res) => {
     );
 };
 
-// ✅ Update an Athlete by athleteID
 exports.update = (req, res) => {
   const athleteID = req.params.id;
 
@@ -82,7 +89,6 @@ exports.update = (req, res) => {
     );
 };
 
-// ✅ Delete an Athlete by athleteID
 exports.delete = (req, res) => {
   const athleteID = req.params.id;
 

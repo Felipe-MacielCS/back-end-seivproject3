@@ -2,10 +2,11 @@ import dbConfig from "../config/db.config.js";
 import { Sequelize } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
-// Import only the User model
 import User from "./user.model.js";
+import Athlete from "./athlete.model.js";
+import Session from "./session.model.js";
+//import Coach from "./coach.model.js";
 
-// Define the db object
 const db = {};
 
 db.Sequelize = Sequelize;
@@ -13,6 +14,15 @@ db.sequelize = sequelize;
 
 // Assign models
 db.user = User;
+db.session = Session;
+db.athlete = Athlete;
+//db.Coach = Coach;
+
+db.user.hasOne(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
+//db.User.hasOne(db.Coach, { foreignKey: "userID", onDelete: "CASCADE" });
+
+db.athlete.belongsTo(db.user, { foreignKey: "userID" });
+//db.Coach.belongsTo(db.User, { foreignKey: "userID" });
 
 // Export db
 export default db;

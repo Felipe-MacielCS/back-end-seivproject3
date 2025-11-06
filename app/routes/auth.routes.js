@@ -4,10 +4,13 @@ import { Router } from "express";
 
 const router = Router();
 
-// Login
-router.post("/login", auth.login);
+  // Login
+  router.post("/login", auth.login);
 
-// Logout
-router.post("/logout", auth.logout);
+  // Authorization
+  router.post("/authorize/:id", auth.authorize);
+
+  // Logout
+  router.post("/logout", auth.logout);
 
 export default router;

@@ -8,3 +8,5 @@ athleteRouter.get("/", [authenticate], athletes.findAll);
 athleteRouter.get("/:id", [authenticate], athletes.findOne);
 athleteRouter.put("/:id", [authenticate], athletes.update);
 athleteRouter.delete("/:id", [authenticate], athletes.delete);
+
+export default athleteRouter;
