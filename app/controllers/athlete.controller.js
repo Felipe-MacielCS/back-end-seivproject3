@@ -4,7 +4,6 @@ const Op = db.Sequelize.Op;
 
 const exports = {};
 
-// ✅ Create and Save a new Athlete
 exports.create = (req, res) => {
   if (!req.body.userID) {
     res.status(400).send({ message: "User ID cannot be empty!" });
@@ -28,7 +27,6 @@ exports.create = (req, res) => {
     );
 };
 
-// ✅ Retrieve all Athletes (optional filtering)
 exports.findAll = (req, res) => {
   const sport = req.query.sport;
   const condition = sport ? { sport: { [Op.like]: `%${sport}%` } } : null;
@@ -42,7 +40,6 @@ exports.findAll = (req, res) => {
     );
 };
 
-// ✅ Retrieve a single Athlete by athleteID
 exports.findOne = (req, res) => {
   const athleteID = req.params.id;
 
@@ -61,7 +58,6 @@ exports.findOne = (req, res) => {
     );
 };
 
-// ✅ Update an Athlete by athleteID
 exports.update = (req, res) => {
   const athleteID = req.params.id;
 
@@ -82,7 +78,6 @@ exports.update = (req, res) => {
     );
 };
 
-// ✅ Delete an Athlete by athleteID
 exports.delete = (req, res) => {
   const athleteID = req.params.id;
 
