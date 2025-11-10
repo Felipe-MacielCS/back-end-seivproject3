@@ -1,4 +1,3 @@
-
 import routes from "./app/routes/index.js";
 import express, { json, urlencoded } from "express"
 import cors from "cors";
