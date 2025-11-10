@@ -1,6 +1,10 @@
-// models/athlete.model.js
-export default (sequelize, DataTypes) => {
-  const Athlete = sequelize.define("athlete", {
+// app/models/athlete.model.js
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelizeInstance.js";
+
+const Athlete = sequelize.define(
+  "athlete",
+  {
     athleteID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -26,7 +30,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-  });
+  },
+  {
+    tableName: "athletes",
+    timestamps: true,
+  }
+);
 
-  return Athlete;
-};
+export default Athlete;
