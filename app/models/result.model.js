@@ -5,6 +5,10 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
+    goalID: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     recordDate: {
       type: DataTypes.DATE,
       allowNull: false

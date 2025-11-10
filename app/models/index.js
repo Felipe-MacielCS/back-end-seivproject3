@@ -1,9 +1,9 @@
 import dbConfig from "../config/db.config.js";
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
-// Import only the User model
-import Result from "./result.model.js";
+// Import the model function
+import ResultModel from "./result.model.js";
 
 // Define the db object
 const db = {};
@@ -11,9 +11,8 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// Assign models
 
-db.result = Result;
+db.result = ResultModel(sequelize, DataTypes);
 
 // Export db
 export default db;
