@@ -4,6 +4,7 @@ import { Router } from "express";
 import AuthRoutes from "./auth.routes.js";
 import UserRoutes from "./user.routes.js";
 import AthleteRoutes from "./athlete.routes.js";
+import Coach from "./coach.routes.js";
 
 const router = Router();
 
@@ -11,5 +12,6 @@ const router = Router();
 router.use("/", AuthRoutes);
 router.use("/users", UserRoutes);
 router.use("/athletes", AthleteRoutes);
+router.use("/coaches", Coach);
 
 export default router;
