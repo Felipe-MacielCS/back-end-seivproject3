@@ -5,6 +5,7 @@ import crypto from "crypto";
 
 const User = db.user;
 const Athlete = db.athlete;
+const Coach = db.coach;            
 const Session = db.session;
 const google_id = process.env.CLIENT_ID;
 
@@ -15,6 +16,7 @@ exportsObj.login = async (req, res) => {
     const googleToken = req.body.credential;
 
     const isAthlete = req.body.isAthlete || false;
+    const isCoach = req.body.isCoach || false; 
     const sport = req.body.sport || null;
     const age = req.body.age || null;
     const weight = req.body.weight || null;
@@ -33,6 +35,7 @@ exportsObj.login = async (req, res) => {
     let user = await User.findOne({ where: { email } });
 
     if (!user) {
+
       user = await User.create({
         name,
         email,
@@ -49,18 +52,36 @@ exportsObj.login = async (req, res) => {
           height,
         });
         console.log(" Athlete profile created:", athlete.dataValues);
+      } else if (isCoach) {
+        const coach = await Coach.create({
+          userID: user.userID,
+        });
+        console.log(" Coach profile created:", coach.dataValues);
       }
     } else {
-      // If user exists, update name if it changed
-      user.name = name;
+
+      user.name = name; 
       await user.save();
       console.log(" Existing user updated:", user.dataValues);
+
+
+      if (isCoach) {
+        const existingCoach = await Coach.findOne({
+          where: { userID: user.userID },
+        });
+        if (!existingCoach) {
+          const coach = await Coach.create({ userID: user.userID });
+          console.log(" Coach profile created for existing user:", coach.dataValues);
+        }
+      }
+
+
     }
 
     await Session.destroy({ where: { email } });
 
     const token = crypto.randomBytes(64).toString("hex");
-    const expirationDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 day
+    const expirationDate = new Date(Date.now() + 24 * 60 * 60 * 1000); 
 
     const session = await Session.create({
       email,
