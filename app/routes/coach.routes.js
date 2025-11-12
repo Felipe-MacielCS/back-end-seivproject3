@@ -2,12 +2,12 @@ import coaches from "../controllers/coach.controller.js";
 import authenticate from "../authorization/authorization.js";
 import { Router } from "express";
 
-const router = Router();
+var coachRouter = Router();
 
-router.post("/", [authenticate], coaches.create);
-router.get("/", [authenticate], coaches.findAll);
-router.get("/:id", [authenticate], coaches.findOne);
-router.put("/:id", [authenticate], coaches.update);
-router.delete("/:id", [authenticate], coaches.delete);
+coachRouter.post("/", [authenticate], coaches.create);
+coachRouter.get("/", [authenticate], coaches.findAll);
+coachRouter.get("/:id", [authenticate], coaches.findOne);
+coachRouter.put("/:id", [authenticate], coaches.update);
+coachRouter.delete("/:id", [authenticate], coaches.delete);
 
-export default router;
+export default coachRouter;
