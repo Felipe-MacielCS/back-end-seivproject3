@@ -7,17 +7,18 @@ import Athlete from "./athlete.model.js";
 import Session from "./session.model.js";
 import Coach from "./coach.model.js";
 import Goal from "./goal.model.js";
+import Exercise from "./exercise.model.js";
 
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// Assign models
 db.user = User;
 db.session = Session;
 db.athlete = Athlete;
-db.goal = Goal;
 db.coach = Coach;
+db.goal = Goal;
+db.exercise = Exercise;
 
 db.user.hasOne(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
 db.user.hasOne(db.coach, { foreignKey: "userID", onDelete: "CASCADE" });
