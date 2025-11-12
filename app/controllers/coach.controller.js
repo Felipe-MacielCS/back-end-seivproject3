@@ -21,7 +21,14 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  Coach.findAll()
+  Coach.findAll({
+    include: [
+      {
+        model: db.user,
+        attributes: ["userID", "name", "email", "isAdmin"],
+      },
+    ],
+  })
     .then((data) => res.send(data))
     .catch((err) =>
       res.status(500).send({
@@ -30,10 +37,18 @@ exports.findAll = (req, res) => {
     );
 };
 
+
 exports.findOne = (req, res) => {
   const coachID = req.params.id;
 
-  Coach.findByPk(coachID)
+  Coach.findByPk(coachID, {
+    include: [
+      {
+        model: db.user,
+        attributes: ["userID", "name", "email", "isAdmin"],
+      },
+    ],
+  })
     .then((data) => {
       if (data) res.send(data);
       else
@@ -47,6 +62,7 @@ exports.findOne = (req, res) => {
       })
     );
 };
+
 
 exports.update = (req, res) => {
   const coachID = req.params.id;
