@@ -1,4 +1,3 @@
-// app/models/athlete.model.js
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 

@@ -16,14 +16,14 @@ db.sequelize = sequelize;
 db.user = User;
 db.session = Session;
 db.athlete = Athlete;
-db.Coach = Coach;
+db.coach = Coach;
 db.goal = Goal;
 db.exercise = Exercise;
 
 db.user.hasOne(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
-db.User.hasOne(db.Coach, { foreignKey: "userID", onDelete: "CASCADE" });
+db.user.hasOne(db.coach, { foreignKey: "userID", onDelete: "CASCADE" });
 
 db.athlete.belongsTo(db.user, { foreignKey: "userID" });
-db.Coach.belongsTo(db.User, { foreignKey: "userID" });
+db.coach.belongsTo(db.user, { foreignKey: "userID" });
 
 export default db;
