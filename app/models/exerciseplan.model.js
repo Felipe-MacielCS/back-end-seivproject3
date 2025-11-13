@@ -1,5 +1,9 @@
-export default (sequelize, DataTypes) => {
-  const ExercisePlan = sequelize.define("exerciseplan", {
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelizeInstance.js";
+
+const ExercisePlan = sequelize.define(
+  "exerciseplan",
+  {
     planID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -8,6 +12,10 @@ export default (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    reps: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     repetitions: {
       type: DataTypes.INTEGER,
@@ -21,7 +29,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "exerciseplans",
+    timestamps: true,
+  }
+);
 
-  return ExercisePlan;
-};
+export default ExercisePlan;
