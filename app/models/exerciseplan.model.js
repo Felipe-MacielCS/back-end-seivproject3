@@ -13,14 +13,6 @@ const ExercisePlan = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    reps: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    repetitions: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     description: {
       type: DataTypes.TEXT,
       allowNull: true,

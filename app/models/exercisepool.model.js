@@ -18,6 +18,14 @@ const ExercisePool = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    repetitions: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    sets: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   },
   {
     tableName: "exercisepools",

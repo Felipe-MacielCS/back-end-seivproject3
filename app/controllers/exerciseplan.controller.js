@@ -12,8 +12,6 @@ exports.create = (req, res) => {
 
   const exerciseplan = {
     name: req.body.name,
-    reps: req.body.reps,
-    repetitions: req.body.repetitions,
     description: req.body.description,
     coachID: req.body.coachID,
   };
