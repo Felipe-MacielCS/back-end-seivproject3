@@ -7,17 +7,19 @@ import UserRoutes from "./user.routes.js";
 import AthleteRoutes from "./athlete.routes.js";
 import Coach from "./coach.routes.js";
 import Goal from "./goal.routes.js";
+import Exercise from "./exercise.routes.js";
 import ExercisePlan from "./exerciseplan.routes.js";
 import ExercisePool from "./exercisepool.routes.js";
-import Exercise from "./exercise.routes.js";
+import ResultRoutes from "./result.routes.js";
 
 router.use("/", AuthRoutes);
 router.use("/users", UserRoutes);
 router.use("/athletes", AthleteRoutes);
 router.use("/coaches", Coach);
 router.use("/goals", Goal);
+router.use("/exercises", Exercise);
 router.use("/exerciseplans", ExercisePlan);
 router.use("/exercisepools", ExercisePool);
-router.use("/exercises", Exercise);
+router.use("/results", ResultRoutes);
 
 export default router;
