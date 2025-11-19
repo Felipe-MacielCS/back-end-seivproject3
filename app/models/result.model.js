@@ -1,26 +1,35 @@
-export default (sequelize, DataTypes) => {
-  const Result = sequelize.define("result", {
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelizeInstance.js";
+
+const Result = sequelize.define(
+  "result",
+  {
     resultID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
-    },
-    goalID: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      primaryKey: true,
     },
     recordDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     value: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: false,
     },
     notes: {
-      type: DataTypes.STRING
-    }
-  });
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    goalID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "results",
+    timestamps: true,
+  }
+);
 
-  return Result;
-};
+export default Result;
