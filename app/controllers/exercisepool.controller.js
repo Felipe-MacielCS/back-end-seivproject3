@@ -13,6 +13,8 @@ exports.create = (req, res) => {
     exerciseID: req.body.exerciseID,
     planID: req.body.planID,
     order: req.body.order,
+    repetitions: req.body.repetitions,
+    sets: req.body.sets,
   };
 
   ExercisePool.create(exercisepool)
