@@ -1,5 +1,5 @@
-import { Sequelize } from "sequelize";
 import dbConfig from "../config/db.config.js";
+import { Sequelize, DataTypes } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
 import User from "./user.model.js";
@@ -10,6 +10,7 @@ import Goal from "./goal.model.js";
 import Exercise from "./exercise.model.js";
 import ExercisePlan from "./exerciseplan.model.js";
 import ExercisePool from "./exercisepool.model.js";
+import Result from "./result.model.js";
 
 const db = {};
 db.Sequelize = Sequelize;
@@ -23,6 +24,7 @@ db.goal = Goal;
 db.exercise = Exercise;
 db.exerciseplan = ExercisePlan;
 db.exercisepool = ExercisePool;
+db.result = Result;
 
 db.user.hasOne(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
 db.user.hasOne(db.coach, { foreignKey: "userID", onDelete: "CASCADE" });
