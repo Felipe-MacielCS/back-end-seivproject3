@@ -2,17 +2,34 @@ import dbConfig from "../config/db.config.js";
 import { Sequelize, DataTypes } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
-// Import the model function
-import ResultModel from "./result.model.js";
+import User from "./user.model.js";
+import Athlete from "./athlete.model.js";
+import Session from "./session.model.js";
+import Coach from "./coach.model.js";
+import Goal from "./goal.model.js";
+import Exercise from "./exercise.model.js";
+import ExercisePlan from "./exerciseplan.model.js";
+import ExercisePool from "./exercisepool.model.js";
+import Result from "./result.model.js";
 
-// Define the db object
 const db = {};
-
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.user = User;
+db.session = Session;
+db.athlete = Athlete;
+db.coach = Coach;
+db.goal = Goal;
+db.exercise = Exercise;
+db.exerciseplan = ExercisePlan;
+db.exercisepool = ExercisePool;
+db.result = Result;
 
-db.result = ResultModel(sequelize, DataTypes);
+db.user.hasOne(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
+db.user.hasOne(db.coach, { foreignKey: "userID", onDelete: "CASCADE" });
 
-// Export db
+db.athlete.belongsTo(db.user, { foreignKey: "userID" });
+db.coach.belongsTo(db.user, { foreignKey: "userID" });
+
 export default db;

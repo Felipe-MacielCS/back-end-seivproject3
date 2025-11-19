@@ -1,39 +1,47 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
-const Athlete = sequelize.define(
-  "athlete",
+const Goal = sequelize.define(
+  "goal",
   {
-    athleteID: {
+    goalID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    userID: {
-      type: DataTypes.INTEGER,
+    type: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    weight: {
+    target: {
       type: DataTypes.FLOAT,
-      allowNull: true,
+      allowNull: false,
     },
-    height: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-    },
-    sport: {
+    metric: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    age: {
-      type: DataTypes.INTEGER,
+    deadline: {
+      type: DataTypes.DATE,
       allowNull: true,
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    athleteID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    exerciseID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {
-    tableName: "athletes",
+    tableName: "goals",
     timestamps: true,
   }
 );
 
-export default Athlete;
+export default Goal;
