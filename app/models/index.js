@@ -10,6 +10,7 @@ import Goal from "./goal.model.js";
 import ExercisePlan from "./exerciseplan.model.js";
 import ExercisePool from "./exercisepool.model.js";
 import Exercise from "./exercise.model.js";
+import Sport from "./sport.model.js";
 
 const db = {};
 db.Sequelize = Sequelize;
@@ -23,6 +24,7 @@ db.goal = Goal;
 db.exerciseplan = ExercisePlan;
 db.exercisepool = ExercisePool;
 db.exercise = Exercise;
+db.sport = Sport;
 
 db.user.hasOne(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
 db.user.hasOne(db.Coach, { foreignKey: "userID", onDelete: "CASCADE" });
