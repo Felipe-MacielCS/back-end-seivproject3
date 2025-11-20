@@ -1,5 +1,9 @@
-export default (sequelize, DataTypes) => {
-  const Coach = sequelize.define("coach", {
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelizeInstance.js";
+
+const Coach = sequelize.define(
+  "coach",
+  {
     coachID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -9,7 +13,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "coaches",
+    timestamps: true,
+  }
+);
 
-  return Coach;
-};
+export default Coach;

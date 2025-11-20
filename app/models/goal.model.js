@@ -1,5 +1,9 @@
-export default (sequelize, DataTypes) => {
-  const Goal = sequelize.define("goal", {
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelizeInstance.js";
+
+const Goal = sequelize.define(
+  "goal",
+  {
     goalID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -33,7 +37,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "goals",
+    timestamps: true,
+  }
+);
 
-  return Goal;
-};
+export default Goal;

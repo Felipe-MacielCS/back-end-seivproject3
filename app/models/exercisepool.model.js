@@ -1,5 +1,9 @@
-export default (sequelize, DataTypes) => {
-  const ExercisePool = sequelize.define("exercisepool", {
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelizeInstance.js";
+
+const ExercisePool = sequelize.define(
+  "exercisepool",
+  {
     exerciseID: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,9 +18,19 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-  }, {
+    repetitions: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    sets: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+  },
+  {
+    tableName: "exercisepools",
     timestamps: false,
-  });
+  }
+);
 
-  return ExercisePool;
-};
+export default ExercisePool;
