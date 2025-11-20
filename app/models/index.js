@@ -11,6 +11,7 @@ import Exercise from "./exercise.model.js";
 import ExercisePlan from "./exerciseplan.model.js";
 import ExercisePool from "./exercisepool.model.js";
 import Result from "./result.model.js";
+import PlanAssignment from "./planassignment.model.js";
 
 const db = {};
 db.Sequelize = Sequelize;
@@ -25,6 +26,7 @@ db.exercise = Exercise;
 db.exerciseplan = ExercisePlan;
 db.exercisepool = ExercisePool;
 db.result = Result;
+db.planassignment = PlanAssignment;
 
 // User to Athlete
 db.user.hasMany(db.athlete, { foreignKey: "userID", onDelete: "CASCADE" });
@@ -64,5 +66,21 @@ db.exerciseplan.belongsToMany(db.exercise, {
   otherKey: "exerciseID",
   onDelete: "CASCADE",
 });
+
+// Athlete to ExercisePlan using PlanAssignment
+Athlete.belongsToMany(ExercisePlan, {
+  through: PlanAssignment,
+  foreignKey: "athleteID",
+  otherKey: "planID",
+  as: "plans",
+});
+
+ExercisePlan.belongsToMany(Athlete, {
+  through: PlanAssignment,
+  foreignKey: "planID",
+  otherKey: "athleteID",
+  as: "athletes",
+});
+
 
 export default db;
