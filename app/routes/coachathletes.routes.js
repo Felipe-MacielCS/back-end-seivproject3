@@ -1,12 +1,11 @@
-import express from "express";
 import coachAthlete from "../controllers/coachathlete.controller.js";
+import authenticate from "../authorization/authorization.js";
+import { Router } from "express";
 
-const router = express.Router();
+const router = Router();
 
-router.post("/", coachAthlete.create);
-router.get("/", coachAthlete.findAll);
-router.delete("/:coachID/:athleteID", coachAthlete.delete);
+router.post("/", [authenticate], coachAthlete.create);
+router.get("/", [authenticate], coachAthlete.findAll);
+router.delete("/:coachID/:athleteID", [authenticate], coachAthlete.delete);
 
-export default (app) => {
-  app.use("/tracker-t7/coachathletes", router);
-};
+export default router;
